@@ -1,4 +1,3 @@
-/* Tree.c */
 #define TREE
 #include "Tree.h"
 

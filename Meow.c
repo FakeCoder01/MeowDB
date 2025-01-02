@@ -1,11 +1,11 @@
 #undef TREE
-#include "Cache.h"
+#include "Meow.h"
 
 extern Node root;
 
 // handles the "hello" command
 int32 handle_hello(Client *cli, int8 *key, int8 *value) {
-    dprintf(cli->socket, "Hello from the Cache server!\n");
+    dprintf(cli->socket, "Hello from the Meow!");
     return NoError;
 }
 
@@ -42,34 +42,52 @@ CommandCallback get_command_handler(int8 *cmd) {
 
 // handles the "create" command
 int32 handle_create(Client *cli, int8 *key, int8 *value) {
-    return insert_leaf(&root, key, value, strlen((char *)value)); // create a new key-value pair
+    int32 res = insert_leaf(&root, key, value, strlen((char *)value)); // create a new key-value pair
+    if(res == NoError){
+        dprintf(cli->socket, "%s", key);
+    }
+    return res;
 }
 
 // handlesthe "insert" command
 int32 handle_insert(Client *cli, int8 *key, int8 *value) {
-    return insert_leaf(&root, key, value, strlen((char *)value)); // insert or update a key-value pair
+    int32 res = insert_leaf(&root, key, value, strlen((char *)value)); // insert or update a key-value pair
+    if(res == NoError){
+        dprintf(cli->socket, "%s", key);
+    }
+    return res;
 }
 
 // handles the "select" command
 int32 handle_select(Client *cli, int8 *key, int8 *value) {
     Leaf *leaf = select_leaf(&root, key);
     if (leaf) {
-        dprintf(cli->socket, "Value for '%s': %s\n", key, leaf->value);
+        dprintf(cli->socket, "%s", leaf->value);
         return NoError;
     } else {
-        dprintf(cli->socket, "Key '%s' not found.\n", key);
+        dprintf(cli->socket, "key[%s]::not found", key);
         return -1;
     }
 }
 
 // handles the "update" command
 int32 handle_update(Client *cli, int8 *key, int8 *value) {
-    return insert_leaf(&root, key, value, strlen((char *)value)); // update the value for an existing key
+    int32 res = insert_leaf(&root, key, value, strlen((char *)value));
+    if(res == NoError){
+        dprintf(cli->socket, "%s", key);
+    }
+    return res;
 }
 
 // handles the "delete" command
 int32 handle_delete(Client *cli, int8 *key, int8 *value) {
-    return delete_leaf(&root, key); // delete the key-value pair
+    int32 res = delete_leaf(&root, key);  // delete the key-value pair
+    if(res == NoError){
+        dprintf(cli->socket, "%s", key);
+    }else{
+        dprintf(cli->socket, "key[%s]::not found", key);
+    }
+    return res;
 }
 
 // handles client communication in a loop
@@ -80,7 +98,7 @@ void child_loop(Client *cli) {
     int8 cmd[256], key[256], value[256];
     CommandCallback cb;
 
-    write(cli->socket, "\nhey ::> ", 9);
+    // write(cli->socket, "\n>", 2);
 
     zero(buffer, 256);
     read(cli->socket, (char *)buffer, 255);
@@ -122,12 +140,12 @@ void child_loop(Client *cli) {
     }
 
 done:
-    dprintf(cli->socket, "key:\t%s\n", key);
-    dprintf(cli->socket, "value:\t%s\n", value);
-    
+    // dprintf(cli->socket, "key:\t%s\n", key);
+    // dprintf(cli->socket, "value:\t%s\n", value);
+   
     cb = get_command_handler(cmd);
     if (!cb) {
-        dprintf(cli->socket, "400 Command not found: %s\n", cmd);
+        dprintf(cli->socket, "cmd[%s]::not found", cmd);
         return;
     } else {
         cb(cli, key, value);
@@ -168,7 +186,7 @@ void main_loop(int s) {
         free(client);
         return;
     } else {
-        dprintf(s2, "Success:: Connected to Cache server\n");
+        // dprintf(s2, "Success:: Connected to server\n");
 
         client_continuation = true;
         while (client_continuation) child_loop(client);
@@ -219,10 +237,9 @@ int main(int argc, char *argv[]) {
     s = initialize_server(port);
 
     server_continuation = true;
-    while (server_continuation)
-        main_loop(s);
+    while (server_continuation) main_loop(s);
     
-    printf("Shutting down...\n");
+    printf("Closing...\n");
     close(s);
 
     return 0;

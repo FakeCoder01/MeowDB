@@ -4,7 +4,7 @@
 
 This project implements a Redis-like database server in C, supporting basic operations such as create, insert, select, update, and delete. The server uses a tree-based data structure to store key-value pairs and handles client connections using sockets.
 
-_This project is based on a tutorial taught by Dr. Birch (**[Youtube](https://youtube.com/@dr-Jonas-Birch)** | **[Website](doctorbirch.com)**)_
+_This project is based on a tutorial taught by Dr. Birch (**[Youtube](https://youtube.com/@dr-Jonas-Birch)** | **[Website](https://doctorbirch.com)**)_
 
 ![Meow](ref/DB.png "Meow is coming to you"){width="200" height="200" style="display: block !important; margin: auto !important;"}
 
@@ -41,8 +41,8 @@ The server listens on a specified port (default: `6969`) for incoming client con
 To compile and run the server, use the following commands:
 
 ```bash
-make
-./Cache [port]
+$ make
+$ ./Meow [port]
 ```
 
 Replace `[port]` with the desired port number. If no port is specified, the server will use the default port `6969`.

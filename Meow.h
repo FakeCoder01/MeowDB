@@ -1,5 +1,3 @@
-/* Cache.h */
-
 #ifndef CACHE
 #define CACHE
 

@@ -1,3 +1,7 @@
 *.o
 Cache
 *.exe
+python_lib/
+test.py
+tests.py
+s
