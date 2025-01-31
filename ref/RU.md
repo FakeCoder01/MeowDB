@@ -6,8 +6,7 @@
 
 _Этот проект основан на уроке, который ведет доктор Бирч (**[Youtube](https://youtube.com/@dr-Jonas-Birch)** | **[Веб-сайт](https://doctorbirch.com)**)_
 
-<img align="center" width="100" height="100" src="DB.png" alt="Мяу идет к тебе">
-
+<p align="center"><img align="center" width="200px" height="200px" src="DB.png" alt="Мяу идет к тебе"></p>
 
 ## Функции
 - **Create**: Добавьте новую пару ключ-значение в базу данных.

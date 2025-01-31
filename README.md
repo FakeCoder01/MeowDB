@@ -6,7 +6,7 @@ This project implements a Redis-like database server in C, supporting basic oper
 
 _This project is based on a tutorial taught by Dr. Birch (**[Youtube](https://youtube.com/@dr-Jonas-Birch)** | **[Website](https://doctorbirch.com)**)_
 
-<img align="center" width="100" height="100" src="ref/DB.png" alt="Meow is coming to you">
+<p align="center"><img align="center" width="200px" height="200px" src="ref/DB.png" alt="Meow is coming to you"></p>
 
 ## Features
 - **Create**: Add a new key-value pair to the database.
