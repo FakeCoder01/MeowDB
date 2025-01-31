@@ -17,7 +17,7 @@
 #pragma GCC diagnostic ignored "-Wstringop-truncation"
 #pragma GCC diagnostic push
 
-#define HOST        "127.0.0.1"
+#define HOST        "0.0.0.0"
 #define PORT        "6969"
 
 // type definitions

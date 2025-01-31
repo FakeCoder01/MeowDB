@@ -201,6 +201,7 @@ void main_loop(int s) {
 
 // initialize the server
 int initialize_server(int16 port) {
+
     struct sockaddr_in sock;
     int s;
 
@@ -228,11 +229,12 @@ int main(int argc, char *argv[]) {
     int16 port;
     int s;
 
-    if (argc < 2)
+    if (argc < 2) {
         sport = PORT;
-    else
+    }
+    else{
         sport = argv[1];
-
+    }
     port = (int16)atoi(sport);
     s = initialize_server(port);
 
