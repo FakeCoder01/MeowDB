@@ -12,7 +12,7 @@
 #include <arpa/inet.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
-#include "Tree.h"
+#include "Tree/Tree.h"
 
 #pragma GCC diagnostic ignored "-Wstringop-truncation"
 #pragma GCC diagnostic push

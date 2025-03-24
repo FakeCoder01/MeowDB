@@ -6,7 +6,7 @@ all: clean Meow
 Tree.o: Tree.c
 	cc ${flags} -c $^
 
-Meow: Meow.o Tree.o
+Meow: Meow.o Tree/Tree.o
 	cc ${flags} $^ -o $@ ${ldflags}
 
 Meow.o: Meow.c
@@ -14,4 +14,3 @@ Meow.o: Meow.c
 
 clean:
 	rm -f *.o Meow *.txt
-	
